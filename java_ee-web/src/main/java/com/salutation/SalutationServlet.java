@@ -30,6 +30,7 @@ public class SalutationServlet extends HttpServlet {
     @EJB
     private Salutation salutation;
 
+    //MDB declarations
     @Resource(mappedName = "jms/SalutationQueueFactory")
     private QueueConnectionFactory queueConnectionFactory;
     @Resource(mappedName = "jms/SalutationQueue")
@@ -77,7 +78,9 @@ public class SalutationServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
+
+
         
         try {
             /* TODO output your page here. You may use following sample code. */
