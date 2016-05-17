@@ -23,6 +23,7 @@ public class OrderMessageServlet extends HttpServlet {
     @Resource(mappedName = "jms/OrderQueue")
     private Queue queue;
 
+
     private void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException{
         response.setContentType("text/html;charset=UTF-8");
