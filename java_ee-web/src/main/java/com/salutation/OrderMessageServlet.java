@@ -39,7 +39,7 @@ public class OrderMessageServlet extends HttpServlet {
             //4. creating message producer
             final MessageProducer producer = session.createProducer(queue);
             //5. sending a message
-            objectMessage.setObject(new Order(1234, 50f, 20));
+            objectMessage.setObject(new Order(1234, 50f, 50));
             producer.send(objectMessage);
 
             try {
