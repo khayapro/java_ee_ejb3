@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 
 /**
  * Created by khayapro on 2016/05/30
@@ -19,7 +20,7 @@ public class PostingServlet extends HttpServlet {
     @Resource(mappedName = "jms/PostingQueueConnectionFactory")
     private QueueConnectionFactory queueConnectionFactory;
     @Resource(mappedName = "jms/PostingQueue")
-    private Queue queue;
+    private Queue postingQueue;
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -27,7 +28,7 @@ public class PostingServlet extends HttpServlet {
         try {
             final Connection connection = queueConnectionFactory.createConnection();
             final Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-            final MessageProducer producer = session.createProducer(queue);
+            final MessageProducer producer = session.createProducer(postingQueue);
             final TextMessage textMessage = session.createTextMessage();
             textMessage.setText("For your eyes only");
             textMessage.setStringProperty("PostingType", "private");
@@ -39,15 +40,19 @@ public class PostingServlet extends HttpServlet {
             producer.send(textMessage);
             System.out.println("... sent a public message successfully.");
 
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet PostingServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.print("<p>private and public message sent...</p>");
-            out.println("</body>");
-            out.println("</html>");
+            //Browsing message in a postingQueue using the QueueBrowser
+            textMessage.setText("This is a protected message - in house");
+            textMessage.setStringProperty("PostingType", "protected");
+            producer.send(textMessage);
+            System.out.println("... sent a public message successfully.");
 
+            final QueueBrowser queueBrowser = session.createBrowser(postingQueue);
+            final Enumeration enumeration = queueBrowser.getEnumeration();
+
+            while(enumeration.hasMoreElements()){
+                final TextMessage message = (TextMessage) enumeration.nextElement();
+                System.out.println("queueBrowser: " + message.getText());
+            }
 
         } catch (JMSException e) {
             e.printStackTrace();
