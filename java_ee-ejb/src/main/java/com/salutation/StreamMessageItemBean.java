@@ -19,8 +19,8 @@ import java.util.logging.Logger;
  * @author khayapro
  */
 @MessageDriven(mappedName = "jms/ItemsQueue", activationConfig = {
-    @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-    @ActivationConfigProperty(propertyName = "acknowledgeType", propertyValue = "Auto-acknowledge")
+    @ActivationConfigProperty(propertyName = "destinationM", propertyValue = "javax.jms.Queue"),
+    @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge")
 })
 public class StreamMessageItemBean implements MessageListener {
 

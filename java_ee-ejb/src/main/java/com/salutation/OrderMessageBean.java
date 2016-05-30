@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  * Created by khayapro on 2016/05/17
  */
 @MessageDriven(mappedName = "jms/OrderQueue", activationConfig = {
-    @ActivationConfigProperty(propertyName = "acknowledgeType", propertyValue = "Auto-Acknowledge"),
+    @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
 })
 public class OrderMessageBean implements MessageListener {

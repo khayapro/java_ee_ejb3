@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  */
 @MessageDriven(mappedName = "jms/MapMessageQueue", activationConfig = {
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue"),
-    @ActivationConfigProperty(propertyName = "acknowledgeType", propertyValue = "Auto-Acknowledge")
+    @ActivationConfigProperty(propertyName = "acknowledgeType", propertyValue = "Auto-acknowledge")
 })
 public class MapMessageBean implements MessageListener {
 

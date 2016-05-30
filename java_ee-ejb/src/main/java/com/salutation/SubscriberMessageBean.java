@@ -9,7 +9,7 @@ import javax.jms.MessageListener;
  * Created by khayapro on 2016/05/18
  */
 @MessageDriven(mappedName = "jms/AvailabilityTopic", activationConfig = {
-    @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-Acknowledge"),
+    @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
     @ActivationConfigProperty(propertyName = "subscriptionDurability", propertyValue = "Durable"),
     @ActivationConfigProperty(propertyName = "clientId", propertyValue = "SubscriberMessageBean"),

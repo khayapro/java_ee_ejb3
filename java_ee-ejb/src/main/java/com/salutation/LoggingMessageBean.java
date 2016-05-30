@@ -13,7 +13,7 @@ import javax.jms.ObjectMessage;
  * Created by khayapro on 2016/05/18
  */
 @MessageDriven(mappedName = "jms/AvailabilityTopic", activationConfig = {
-    @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-Acknowledge"),
+    @ActivationConfigProperty(propertyName = "acknowledgeMode", propertyValue = "Auto-acknowledge"),
     @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
     @ActivationConfigProperty(propertyName = "subscriptionDurability", propertyValue = "Durable"),
     @ActivationConfigProperty(propertyName = "clientId", propertyValue = "LoggingMessageBean"),
@@ -21,6 +21,10 @@ import javax.jms.ObjectMessage;
 })
 public class LoggingMessageBean implements MessageListener {
 
+    /**
+     * Handle a message confirm if user is available or not.
+     * @param message - message to be handled.
+     */
     @Override
     public void onMessage(Message message) {
         try {
@@ -28,7 +32,7 @@ public class LoggingMessageBean implements MessageListener {
             final Availability availability = (Availability) objectMessage.getObject();
 
             if(availability.isAvailable()){
-                System.out.println(availability.getName() + " is not available");
+                System.out.println(availability.getName() + " is available");
             } else {
                 System.out.println(availability.getName() + " is not available");
             }

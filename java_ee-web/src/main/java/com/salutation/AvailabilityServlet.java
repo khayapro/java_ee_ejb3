@@ -32,7 +32,6 @@ public class AvailabilityServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
 
-
             try {
                 //1. create connection
                 final Connection connection = topicConnectionFactory.createConnection();
