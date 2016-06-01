@@ -3,19 +3,19 @@ package com.salutation;
 import com.salutation.model.AbstractFacade;
 import com.salutation.model.City;
 
-import javax.ejb.Stateful;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
+import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.rmi.RemoteException;
 
 /**
  * Created by khayapro on 2016/05/31
  */
 @Stateful
-@TransactionManagement(TransactionManagementType.CONTAINER)
-public class CityFacadeBean extends AbstractFacade<City> {
+@TransactionManagement(TransactionManagementType.CONTAINER) //default
+@TransactionAttribute(TransactionAttributeType.REQUIRED) // default - and for all methods in this class.
+public class CityFacadeBean extends AbstractFacade<City> implements SessionSynchronization{
 
     @PersistenceContext(unitName = "MY_PERSISTENCE_UNIT")
     private EntityManager em;
@@ -34,11 +34,26 @@ public class CityFacadeBean extends AbstractFacade<City> {
     }
 
     public void changePopulation(String cityName, long count){
-        Query query = em.createQuery("UPDATE City c SET c.polulation = c.population+:count WHERE c.name = :cityName");
-        query.setParameter("count", count);
+        Query query = em.createQuery("UPDATE City c SET c.population = c.population + :counts WHERE c.name = :cityName");
+        query.setParameter("counts", count);
         query.setParameter("cityName", cityName);
         final int result = query.executeUpdate();
         System.out.println("result = " + result);
         System.out.println("--- end changePopulation");
+    }
+
+    @Override
+    public void afterBegin() throws EJBException, RemoteException {
+        System.out.println("\nCityFacadeBean afterBegin");
+    }
+
+    @Override
+    public void beforeCompletion() throws EJBException, RemoteException {
+        System.out.println("CityFacadeBean beforeCompletion");
+    }
+
+    @Override
+    public void afterCompletion(boolean b) throws EJBException, RemoteException {
+        System.out.println("CityFacadeBean afterCompletion\n");
     }
 }

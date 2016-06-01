@@ -47,4 +47,13 @@ public class City implements Serializable {
     public long getPopulation() {
         return population;
     }
+
+    @Override
+    public String toString() {
+        return "City{" +
+                "population=" + population +
+                ", country='" + country + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
