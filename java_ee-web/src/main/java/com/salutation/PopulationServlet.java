@@ -19,8 +19,10 @@ import java.util.List;
 public class PopulationServlet extends HttpServlet {
 
 
+//    @EJB
+//    private PopulationManager populationManager;
     @EJB
-    private PopulationManager populationManager;
+    private BeanManagedPopulationManager populationManager;
     @EJB
     private CityFacadeBean cityFacadeBean;
 
@@ -32,8 +34,8 @@ public class PopulationServlet extends HttpServlet {
             clearTables();
 
             //demonstrating transaction by adding city and then update
-            populationManager.addCity("Johannesburg", "South Africa", 1000000L);
-            populationManager.updatePopulation("Johannesburg", 50000L);
+//            populationManager.addCity("Johannesburg", "South Africa", 1000000L);
+            populationManager.changePopulation("Johannesburg", 50000L);
 
             final List<City> cities = cityFacadeBean.findAll();
 
