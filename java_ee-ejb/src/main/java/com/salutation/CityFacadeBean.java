@@ -8,6 +8,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by khayapro on 2016/05/31
@@ -15,7 +17,7 @@ import java.rmi.RemoteException;
 @Stateful
 @TransactionManagement(TransactionManagementType.CONTAINER) //default
 @TransactionAttribute(TransactionAttributeType.REQUIRED) // default - and for all methods in this class.
-public class CityFacadeBean extends AbstractFacade<City> implements SessionSynchronization{
+public class CityFacadeBean extends AbstractFacade<City> implements SessionSynchronization {
 
     @PersistenceContext(unitName = "MY_PERSISTENCE_UNIT")
     private EntityManager em;
@@ -33,6 +35,7 @@ public class CityFacadeBean extends AbstractFacade<City> implements SessionSynch
         getEntityManager().persist(city);
     }
 
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void changePopulation(String cityName, long count){
         Query query = em.createQuery("UPDATE City c SET c.population = c.population + :counts WHERE c.name = :cityName");
         query.setParameter("counts", count);
@@ -44,16 +47,16 @@ public class CityFacadeBean extends AbstractFacade<City> implements SessionSynch
 
     @Override
     public void afterBegin() throws EJBException, RemoteException {
-        System.out.println("\nCityFacadeBean afterBegin");
+        System.out.println("**********\n - changePopulation() - CityFacadeBean afterBegin");
     }
 
     @Override
     public void beforeCompletion() throws EJBException, RemoteException {
-        System.out.println("CityFacadeBean beforeCompletion");
+        System.out.println("********** - changePopulation() - CityFacadeBean beforeCompletion");
     }
 
     @Override
     public void afterCompletion(boolean b) throws EJBException, RemoteException {
-        System.out.println("CityFacadeBean afterCompletion\n");
+        System.out.println("*********** - changePopulation() - CityFacadeBean afterCompletion\n");
     }
 }

@@ -33,7 +33,7 @@ public class PopulationServlet extends HttpServlet {
 
             //demonstrating transaction by adding city and then update
             populationManager.addCity("Johannesburg", "South Africa", 1000000L);
-            populationManager.updatePopulation("Johannesburg", 2000000L);
+            populationManager.updatePopulation("Johannesburg", 50000L);
 
             final List<City> cities = cityFacadeBean.findAll();
 
