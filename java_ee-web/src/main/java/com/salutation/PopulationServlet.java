@@ -34,6 +34,7 @@ public class PopulationServlet extends HttpServlet {
         try {
             clearTables();
             try {
+                populationManager.addCity("Johannesburg", "South Africa", 45000000L);
                 beanPopulationManager.changePopulation("Johannesburg", 50000L);
             } catch (SystemException e) {
                 System.err.println("SystemException: transaction rolledback.");

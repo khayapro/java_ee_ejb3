@@ -33,8 +33,11 @@ public class BeanManagedPopulationManager {
         try {
             System.out.println("about to execute change population");
             System.out.println("Transaction state before begin(): " + getTransactionStateString(userTransaction.getStatus()));
+            userTransaction.setTransactionTimeout(10);
             userTransaction.begin();
+
             System.out.println("Transaction state after begin(): " + getTransactionStateString(userTransaction.getStatus()));
+            Thread.sleep(20000); //
                 final Query query = em.createQuery("UPDATE City c SET c.population = c.population+:counts WHERE c.name = :cityName");
                 query.setParameter("counts", counts);
                 query.setParameter("cityName", cityName);
