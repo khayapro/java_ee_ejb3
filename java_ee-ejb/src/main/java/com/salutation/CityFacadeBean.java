@@ -3,6 +3,7 @@ package com.salutation;
 import com.salutation.model.AbstractFacade;
 import com.salutation.model.City;
 
+import javax.annotation.Resource;
 import javax.ejb.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
