@@ -20,10 +20,10 @@ import java.util.List;
 public class PopulationServlet extends HttpServlet {
 
 
-//    @EJB
-//    private PopulationManager populationManager;
     @EJB
-    private BeanManagedPopulationManager populationManager;
+    private PopulationManager populationManager;
+    @EJB
+    private BeanManagedPopulationManager beanPopulationManager;
     @EJB
     private CityFacadeBean cityFacadeBean;
 
@@ -33,15 +33,17 @@ public class PopulationServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         try {
             clearTables();
-
-            //demonstrating transaction by adding city and then update
-//            populationManager.addCity("Johannesburg", "South Africa", 1000000L);
             try {
-                populationManager.changePopulation("Johannesburg", 50000L);
+                beanPopulationManager.changePopulation("Johannesburg", 50000L);
             } catch (SystemException e) {
                 System.err.println("SystemException: transaction rolledback.");
             }
 
+            //demonstrating transaction by adding city and then update
+            populationManager.addCity("Cape Town", "South Africa", 345000L);
+
+            //demostrating illegalPopulationException
+            populationManager.updatePopulation("Cape Town", -45000L);
             final List<City> cities = cityFacadeBean.findAll();
 
             out.println("<html>");

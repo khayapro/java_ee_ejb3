@@ -1,5 +1,6 @@
 package com.salutation;
 
+import com.salutation.Exception.IllegalPopulationException;
 import com.salutation.model.AbstractFacade;
 import com.salutation.model.City;
 
@@ -40,11 +41,18 @@ public class CityFacadeBean extends AbstractFacade<City> implements SessionSynch
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    public void changePopulation(String cityName, long count){
+    public void changePopulation(String cityName, long count) throws IllegalPopulationException {
+        System.out.println("Executing a changePopulation ");
+
         Query query = em.createQuery("UPDATE City c SET c.population = c.population + :counts WHERE c.name = :cityName");
         query.setParameter("counts", count);
         query.setParameter("cityName", cityName);
         final int result = query.executeUpdate();
+
+        //demonstrating an application exception & automatic rollback.
+        if(count < 1){
+            throw new IllegalPopulationException();
+        }
 
         //result greater than 1, assume and issue / error, then rollback.
         if(result > 1){

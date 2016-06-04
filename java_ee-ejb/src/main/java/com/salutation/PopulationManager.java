@@ -1,7 +1,9 @@
 package com.salutation;
 
+import com.salutation.Exception.IllegalPopulationException;
 import com.salutation.model.City;
 
+import javax.annotation.Resource;
 import javax.ejb.*;
 import java.rmi.RemoteException;
 
@@ -26,7 +28,11 @@ public class PopulationManager implements SessionSynchronization {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void updatePopulation(String cityName, long population){
-        cityFacadeBean.changePopulation(cityName, population);
+        try {
+            cityFacadeBean.changePopulation(cityName, population);
+        } catch (IllegalPopulationException e) {
+            System.out.println("IllegalPopulationException was caught...");
+        }
     }
 
     @Override
