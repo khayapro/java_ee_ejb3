@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Status;
+import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
 /**
@@ -28,7 +29,7 @@ public class BeanManagedPopulationManager {
      * @param cityName
      * @param counts
      */
-    public void changePopulation(String cityName, long counts){
+    public void changePopulation(String cityName, long counts) throws SystemException {
         try {
             System.out.println("about to execute change population");
             System.out.println("Transaction state before begin(): " + getTransactionStateString(userTransaction.getStatus()));
@@ -42,6 +43,7 @@ public class BeanManagedPopulationManager {
             userTransaction.commit();
             System.out.println("Transaction state after commit(): " + getTransactionStateString(userTransaction.getStatus()));
         } catch (Exception e) {
+            userTransaction.rollback(); //immediately rollback this transaction.
             e.printStackTrace();
         }
     }

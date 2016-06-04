@@ -23,6 +23,9 @@ public class CityFacadeBean extends AbstractFacade<City> implements SessionSynch
     @PersistenceContext(unitName = "MY_PERSISTENCE_UNIT")
     private EntityManager em;
 
+    @Resource
+    private SessionContext context;
+
     public CityFacadeBean() {
         super(City.class);
     }
@@ -42,6 +45,11 @@ public class CityFacadeBean extends AbstractFacade<City> implements SessionSynch
         query.setParameter("counts", count);
         query.setParameter("cityName", cityName);
         final int result = query.executeUpdate();
+
+        //result greater than 1, assume and issue / error, then rollback.
+        if(result > 1){
+            context.setRollbackOnly();
+        }
         System.out.println("result = " + result);
         System.out.println("--- end changePopulation");
     }

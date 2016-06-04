@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.SystemException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -35,7 +36,11 @@ public class PopulationServlet extends HttpServlet {
 
             //demonstrating transaction by adding city and then update
 //            populationManager.addCity("Johannesburg", "South Africa", 1000000L);
-            populationManager.changePopulation("Johannesburg", 50000L);
+            try {
+                populationManager.changePopulation("Johannesburg", 50000L);
+            } catch (SystemException e) {
+                System.err.println("SystemException: transaction rolledback.");
+            }
 
             final List<City> cities = cityFacadeBean.findAll();
 
