@@ -6,17 +6,9 @@
 
 package com.salutation;
 
+import javax.ejb.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ejb.AccessTimeout;
-import javax.ejb.Asynchronous;
-import javax.ejb.ConcurrencyManagement;
-import javax.ejb.ConcurrencyManagementType;
-import javax.ejb.Lock;
-import javax.ejb.LockType;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
-import javax.ejb.Timeout;
 
 /**
  *

@@ -6,4 +6,29 @@
             30
         </session-timeout>
     </session-config>
+
+    <!-- setting security configurations -->
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>file</realm-name>
+    </login-config>
+
+    <security-role>
+        <role-name>employee</role-name>
+    </security-role>
+
+    <!-- so that username and password is supplied to access the resource. -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>SecurityApplicationResource</web-resource-name>
+            <url-pattern>/SecurityServlet</url-pattern>
+        </web-resource-collection>
+
+        <!--enable security constraint -->
+        <auth-constraint>
+            <description/>
+            <role-name>employee</role-name>
+        </auth-constraint>
+    </security-constraint>
+
 </web-app>
