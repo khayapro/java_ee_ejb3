@@ -26,21 +26,14 @@ public class SecurityServlet extends HttpServlet {
         try {
             voucherManager.createVoucher("Sams Billing", "Cape Town", BigDecimal.valueOf(5045.23d));
             voucherManager.submit();
-            final boolean isApproved = voucherManager.approve();
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Security Servlet</title>");
             out.println("</head>");
             out.println("<body>");
-            if(isApproved) {
-                out.println("<h3>Security servlet: voucher submitted & approved.</h3>");
-                out.println("<h3>Security servlet: voucher submitted & approved.</h3>");
-            } else {
-                out.println("<h3>Security servlet: voucher submitted & not approved.</h3>");
-            }
+            out.println("<h3> Voucher name: " + voucherManager.getName() + "</h3>");
             out.println("</body>");
             out.println("</html>");
-            request.logout();
         } catch (EJBAccessException e){
             System.out.println("EJB ACCESS EXCEPTION WAS THROWN");
         } finally {

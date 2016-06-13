@@ -24,6 +24,8 @@ public class VoucherManager {
 
     @EJB
     private VoucherFacade voucherFacade;
+    @EJB
+    private VoucherVerification voucherVerification;
     private Voucher voucher;
 
     public void createVoucher(String name, String destination, BigDecimal amount){
@@ -54,6 +56,7 @@ public class VoucherManager {
     @RolesAllowed(Role.EMPLOYEE)
     public void submit(){
         System.out.println("voucher submitted");
+        voucherVerification.submit();
     }
 
     /**
