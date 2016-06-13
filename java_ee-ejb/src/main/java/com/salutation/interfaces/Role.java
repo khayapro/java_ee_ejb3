@@ -7,4 +7,5 @@ public interface Role {
 
     String MANAGER = "manager";
     String EMPLOYEE = "employee";
+    String AUDITOR = "auditor";
 }
