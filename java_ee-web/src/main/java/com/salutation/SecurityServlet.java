@@ -24,14 +24,22 @@ public class SecurityServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            voucherManager.createVoucher("Sams Billing", "Cape Town", BigDecimal.valueOf(5045.23d));
-            voucherManager.submit();
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Security Servlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h3> Voucher name: " + voucherManager.getName() + "</h3>");
+
+            voucherManager.createVoucher("Sams Billing", "Cape Town", BigDecimal.valueOf(5045.23d));
+            voucherManager.submit();
+            final boolean approve = voucherManager.approve();
+            if(approve) {
+                out.println("<h3> Voucher name: " + voucherManager.getName() + "</h3>");
+                out.println("<h3> Voucher approved</h3>");
+            } else {
+                out.println("<h3> Voucher name: " + voucherManager.getName() + "</h3>");
+                out.println("<h3> Voucher not approved</h3>");
+            }
             out.println("</body>");
             out.println("</html>");
         } catch (EJBAccessException e){

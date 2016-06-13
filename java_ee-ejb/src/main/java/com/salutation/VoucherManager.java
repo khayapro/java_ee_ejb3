@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 import java.math.BigDecimal;
+import java.security.Principal;
 
 /**
  * Created by khayapro on 2016/06/04
@@ -20,7 +21,7 @@ import java.math.BigDecimal;
 public class VoucherManager {
 
     @Resource
-    private SessionContext context;
+    private SessionContext sessionContext;
 
     @EJB
     private VoucherFacade voucherFacade;
@@ -64,9 +65,15 @@ public class VoucherManager {
      */
     @RolesAllowed(Role.MANAGER)
     public boolean approve(){
-        System.out.println("voucher approved");
-        voucher.setApproved(true);
-        return true;
+        final Principal principal = sessionContext.getCallerPrincipal();
+        if(sessionContext.isCallerInRole(Role.MANAGER)) { //more efficient than comparing principal.getName()
+            voucher.setApproved(true);
+            System.out.println("voucher approved successfully");
+            return true;
+        } else {
+            System.out.println("voucher failed to be approved");
+            return  false;
+        }
     }
 
     /**
