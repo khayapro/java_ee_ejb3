@@ -2,12 +2,12 @@ package com.salutation;
 
 import com.salutation.interceptors.MethodInterceptor;
 import com.salutation.interceptors.SimpleInterceptor;
+import com.salutation.interceptors.ValidationInterceptor;
 import com.salutation.model.Attendee;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
 import javax.interceptor.AroundInvoke;
-import javax.interceptor.ExcludeClassInterceptors;
 import javax.interceptor.Interceptors;
 import javax.interceptor.InvocationContext;
 
@@ -33,8 +33,8 @@ public class RegistrationManager {
      * @param company -
      * @return Attendee
      */
-    @ExcludeClassInterceptors //Excluding the interceptor defined at class level.
-    @Interceptors({MethodInterceptor.class})
+//    @ExcludeClassInterceptors //Excluding the interceptor defined at class level.
+    @Interceptors({ValidationInterceptor.class, MethodInterceptor.class})
     public Attendee register(String name, String title, String company){
         System.out.println();
         attendee = new Attendee(name, title, company);
@@ -53,7 +53,7 @@ public class RegistrationManager {
     public Object internalInterceptor(InvocationContext context) throws Exception {
         System.out.println("RegistrationManager - internal method invoking : " + context.getMethod().getName());
         final Object result = context.proceed(); //proceed to targeted method.
-        System.out.println("RegistrationManager - internal method invoking : " + context.getMethod().getName());
+        System.out.println("RegistrationManager - after target method invoked : " + context.getMethod().getName());
         return result;
     }
 

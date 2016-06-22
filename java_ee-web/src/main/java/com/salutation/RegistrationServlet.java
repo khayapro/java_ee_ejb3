@@ -31,8 +31,8 @@ public class RegistrationServlet extends HttpServlet {
             out.println("<title>Servlet ConcurrencyServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            final Attendee attendee = registrationManager.register("Khaya", "Senior Java Developer",
-                    "Aeon Source Software PTY. LTD.");
+            final Attendee attendee = registrationManager.register( "Khaya ", "  Senior Java Developer ",
+                    "Aeon Source Software PTY. LTD.  ");
             out.println("<h3>" + attendee.getName() + " has been registered successfully.</h3>");
             out.println("</body>");
             out.println("</html>");
