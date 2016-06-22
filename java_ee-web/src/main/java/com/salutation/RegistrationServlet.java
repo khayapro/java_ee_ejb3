@@ -17,6 +17,7 @@ import java.io.PrintWriter;
 @WebServlet(name = "RegistrationServlet", urlPatterns = {"/RegistrationServlet"})
 public class RegistrationServlet extends HttpServlet {
 
+
     @EJB
     private RegistrationManager registrationManager;
 
