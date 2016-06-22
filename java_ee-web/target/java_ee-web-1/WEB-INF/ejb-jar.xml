@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ejb-jar xmlns = "http://java.sun.com/xml/ns/javaee" version = "3.1" xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation = "http://java.sun.com/xml/ns/javaee
+         http://java.sun.com/xml/ns/javaee/ejb-jar_3_1.xsd">
+
+    <!-- Defining a default interceptor for all EJB's in this module -->
+    <interceptors>
+        <!-- 1. Define default interceptor-->
+        <interceptor>
+            <interceptor-class>com.salutation.interceptors.DefaultInterceptor</interceptor-class>
+        </interceptor>
+    </interceptors>
+    <!-- 2. Bind interceptor to all ejbs using the asterix (*) in the ejb-name element -->
+    <assembly-descriptor>
+        <interceptor-binding>
+            <ejb-name>*</ejb-name>
+            <interceptor-class>com.salutation.interceptors.DefaultInterceptor</interceptor-class>
+        </interceptor-binding>
+    </assembly-descriptor>
+
+</ejb-jar>
