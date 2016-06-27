@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 @Startup
 @ConcurrencyManagement(ConcurrencyManagementType.CONTAINER)
 public class ConcurrencyBean {
-    
+
     private static final Logger LOG = Logger.getLogger(ConcurrencyBean.class.getName());
     public enum State {PAUSED, RUNNING, TERMINATED}
     
