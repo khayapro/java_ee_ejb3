@@ -33,6 +33,11 @@ public class RegistrationServlet extends HttpServlet {
             out.println("<body>");
             final Attendee attendee = registrationManager.register( "Khaya ", "  Senior Java Developer ",
                     "Aeon Source Software PTY. LTD.  ");
+
+            //bulk registration with using Transaction interceptor
+            String [] names = {"Sam", "John", "Jones", "Khaya", "Sibu", "Ralf"};
+            String [] titles = {"Analyst", "Architect", "BA", "Developer", "Tester", "Manager"};
+            registrationManager.bulkRegister(names, titles, "Aeon Source Software PTY. LTD.  ");
             out.println("<h3>" + attendee.getName() + " has been registered successfully.</h3>");
             out.println("</body>");
             out.println("</html>");
