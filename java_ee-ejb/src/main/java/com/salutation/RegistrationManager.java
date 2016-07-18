@@ -1,9 +1,6 @@
 package com.salutation;
 
-import com.salutation.interceptors.MethodInterceptor;
-import com.salutation.interceptors.SimpleInterceptor;
-import com.salutation.interceptors.TransactionInterceptor;
-import com.salutation.interceptors.ValidationInterceptor;
+import com.salutation.interceptors.*;
 import com.salutation.model.Attendee;
 
 import javax.ejb.EJB;
@@ -43,7 +40,7 @@ public class RegistrationManager {
      * @return Attendee
      */
 //    @ExcludeClassInterceptors //Excluding the interceptor defined at class level.
-    @Interceptors({ValidationInterceptor.class, MethodInterceptor.class})
+    @Interceptors({HitCounterInterceptor.class, TimeInMethodInterceptor.class})
     public Attendee register(String name, String title, String company){
         System.out.println();
         attendee = new Attendee(name, title, company);

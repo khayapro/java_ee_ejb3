@@ -20,6 +20,8 @@ public class RegistrationServlet extends HttpServlet {
 
     @EJB
     private RegistrationManager registrationManager;
+    @EJB
+    private ApplicationStatistics statistics;
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -33,11 +35,13 @@ public class RegistrationServlet extends HttpServlet {
             out.println("<body>");
             final Attendee attendee = registrationManager.register( "Khaya ", "  Senior Java Developer ",
                     "Aeon Source Software PTY. LTD.  ");
+            out.println("<h3> Number of attendees: " + statistics.getCount() + " has been registered successfully.</h3>");
+            out.println("<h3> Total reg time: " + statistics.getTotalTime() + "</h3>");
 
             //bulk registration with using Transaction interceptor
-            String [] names = {"Sam", "John", "Jones", "Khaya", "Sibu", "Ralf"};
+           /* String [] names = {"Sam", "John", "Jones", "Khaya", "Sibu", "Ralf"};
             String [] titles = {"Analyst", "Architect", "BA", "Developer", "Tester", "Manager"};
-            registrationManager.bulkRegister(names, titles, "Aeon Source Software PTY. LTD.  ");
+            registrationManager.bulkRegister(names, titles, "Aeon Source Software PTY. LTD.  ");*/
             out.println("<h3>" + attendee.getName() + " has been registered successfully.</h3>");
             out.println("</body>");
             out.println("</html>");
