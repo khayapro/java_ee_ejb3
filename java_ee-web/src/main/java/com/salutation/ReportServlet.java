@@ -18,10 +18,10 @@ public class ReportServlet extends HttpServlet {
     @EJB
     private ReportsManagerBean reportsManagerBean;
 
-    private void processRequest(HttpServletRequest request, HttpServletResponse response){
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (final PrintWriter pw = response.getWriter()){
-//            final PrintWriter pw = response.getWriter();
+        final PrintWriter pw = response.getWriter();
+        try {
             pw.println("<!DOCTYPE>");
             pw.println("<html>");
             pw.println("<head>");
@@ -31,8 +31,8 @@ public class ReportServlet extends HttpServlet {
             pw.println("<h3>"+ reportsManagerBean.getMemoryReport() +"</h3>");
             pw.println("</body>");
             pw.println("</html>");
-        } catch (IOException e) {
-            System.out.println(e);
+        } finally {
+            pw.close();
         }
     }
 
