@@ -2,6 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/java_ee-ear/java_ee-ear.iml" filepath="$PROJECT_DIR$/java_ee-ear/java_ee-ear.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java_ee-ejb/java_ee-ejb.iml" filepath="$PROJECT_DIR$/java_ee-ejb/java_ee-ejb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java_ee-web/java_ee-web.iml" filepath="$PROJECT_DIR$/java_ee-web/java_ee-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/java_ejb3.iml" filepath="$PROJECT_DIR$/.idea/java_ejb3.iml" />
     </modules>
   </component>
